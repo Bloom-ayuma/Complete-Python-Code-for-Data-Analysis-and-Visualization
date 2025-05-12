@@ -1,0 +1,85 @@
+Data loading and exploration steps.
+Basic data analysis results.
+Visualizations.
+Any findings or observations.
+# Importing necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Step 1: Loading and Inspecting Data
+
+# Load the dataset (replace with your own dataset file path)
+df = pd.read_csv('iris.csv')  # Replace with your dataset
+
+# Display the first few rows to inspect the data
+print("First few rows of the dataset:")
+print(df.head())
+
+# Checking the structure of the dataset, data types, and missing values
+print("\nData structure and missing values:")
+print(df.info())
+
+# Checking for missing values
+print("\nMissing values in each column:")
+print(df.isnull().sum())
+
+# Step 2: Data Cleaning
+
+# Handling missing data by filling with column mean (if any)
+df.fillna(df.mean(), inplace=True)
+
+# Alternatively, drop rows with missing values (if necessary)
+# df.dropna(inplace=True)
+
+# Step 3: Basic Data Analysis
+
+# Basic statistics for numerical columns
+print("\nBasic statistics of the dataset:")
+print(df.describe())
+
+# Grouping by species and computing the mean for numerical columns
+species_group = df.groupby('species').mean()
+print("\nGrouped data (mean values per species):")
+print(species_group)
+
+# Step 4: Data Visualization with Matplotlib
+
+# 1. Line Chart: Example for a time-series (you can replace with your dataset's time column)
+# Assuming 'Date' and 'Sales' columns exist in the dataset
+# Convert 'Date' column to datetime (if exists in your dataset)
+# df['Date'] = pd.to_datetime(df['Date'])
+
+# Set Date column as index (if applicable)
+# df.set_index('Date', inplace=True)
+
+# Plotting a line chart (example: Sales over time)
+# df['Sales'].plot(kind='line')
+# plt.title('Sales Over Time')
+# plt.xlabel('Date')
+# plt.ylabel('Sales')
+# plt.show()
+
+# 2. Bar Chart: Average petal length per species
+species_petal_length = df.groupby('species')['petal_length'].mean()
+
+# Plotting the bar chart
+species_petal_length.plot(kind='bar', color='skyblue')
+plt.title('Average Petal Length per Species')
+plt.xlabel('Species')
+plt.ylabel('Average Petal Length')
+plt.show()
+
+# 3. Histogram: Distribution of 'sepal_length'
+df['sepal_length'].plot(kind='hist', bins=10, color='lightgreen', edgecolor='black')
+plt.title('Distribution of Sepal Length')
+plt.xlabel('Sepal Length')
+plt.ylabel('Frequency')
+plt.show()
+
+# 4. Scatter Plot: Sepal length vs Sepal width
+plt.scatter(df['sepal_length'], df['sepal_width'], color='purple')
+plt.title('Sepal Length vs Sepal Width')
+plt.xlabel('Sepal Length')
+plt.ylabel('Sepal Width')
+plt.show()
+
